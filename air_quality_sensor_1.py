@@ -55,7 +55,7 @@ data_writer.writerow(meta_data)
 
 print("Found PM2.5 sensor, reading data...")
 start_time = time.time()
-while time.time() < start_time + 5:
+while time.time() < start_time + 30:
     time.sleep(1)
 
     try:
