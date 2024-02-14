@@ -11,7 +11,7 @@ import sys
 # from adafruit_pm25.i2c import PM25_I2C
 
 file_name = sys.argv[1]
-run_time = sys.argv[2]
+run_time = int(sys.argv[2])
 
 reset_pin = None
 
