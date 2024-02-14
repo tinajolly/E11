@@ -5,9 +5,13 @@ import time
 import csv
 import board
 import adafruit_bme680
+import sys
 # import busio
 # from digitalio import DigitalInOut, Direction, Pull
 # from adafruit_pm25.i2c import PM25_I2C
+
+file_name = sys.argv[1]
+run_time = sys.argv[2]
 
 reset_pin = None
 
@@ -23,21 +27,22 @@ i2c = board.I2C()
 bme680 = adafruit_bme680.Adafruit_BME680_I2C(i2c)
 bme680.sea_level_pressure = 1013.25
 
-meta_data = ["Time","PM25","PM10"]
-file = open("air_quality_data.csv","w",newline='')
+meta_data = ["Time","PM25","PM10","Temperature","Humidity","Pressure"]
+file = open(file_name,"w",newline='')
 data_writer = csv.writer(file)
 data_writer.writerow(meta_data)
 
 start_time = time.time()
+now = start_time
 
-while time.time() < start_time + 30:
+while (now - start_time) < run_time:
     try:
         aqdata = pm25.read()
     except RuntimeError:
         print("Unable to read from sensor, retrying...")
         continue
     
-    timestamp = time.time()
+    now = time.time()
 
     print()
     print("Concentration Units (standard)")
@@ -61,9 +66,6 @@ while time.time() < start_time + 30:
     print("Particles > 10 um / 0.1L air:", aqdata["particles 100um"])
     print("---------------------------------------")
 
-    data = [timestamp,aqdata["pm25 standard"],aqdata["pm100 standard"]]    
-    data_writer.writerow(data)
-
     print()
     print("Temperature, Pressure, and Humidity")
     print("---------------------------------------")
@@ -74,6 +76,8 @@ while time.time() < start_time + 30:
     print("Altitude: %0.2f meters" % bme680.altitude)
     print("---------------------------------------")
 
-    current_time = int(time.time() - start_time)
-    print(current_time,"Seconds Since Start")
+    data = [now,aqdata["pm25 standard"],aqdata["pm100 standard"],bme680.temperature,bme680.relative_humidity,bme680.pressure]    
+    data_writer.writerow(data)
+
+    print(now - start_time,"Seconds Since Start")
     time.sleep(1)
