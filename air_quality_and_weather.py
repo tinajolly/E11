@@ -69,7 +69,7 @@ while (now - start_time) < run_time:
     print()
     print("Temperature, Pressure, and Humidity")
     print("---------------------------------------")
-    print("\nTemperature: %0.1f C" % bme680.temperature)
+    print("Temperature: %0.1f C" % bme680.temperature)
     print("Gas: %d ohm" % bme680.gas)
     print("Humidity: %0.1f %%" % bme680.relative_humidity)
     print("Pressure: %0.3f hPa" % bme680.pressure)
