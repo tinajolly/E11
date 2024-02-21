@@ -35,7 +35,7 @@ data_writer.writerow(meta_data)
 start_time = time.time()
 now = start_time
 
-while (now - start_time) < run_time:
+while ((now - start_time) + 240) < run_time:
     try:
         aqdata = pm25.read()
     except RuntimeError:
