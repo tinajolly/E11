@@ -9,7 +9,7 @@ run_time = 20
 
 def my_callback(channel):
     if GPIO.input(channel) == GPIO.LOW:
-        print('Falling Edge at ' + str(datetime.datetime.now()))
+        print('Count at ' + str(datetime.datetime.now()))
  
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(16, GPIO.IN)
