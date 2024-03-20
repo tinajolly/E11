@@ -37,7 +37,7 @@ while  (now - start_time) < run_time:
     t = t + 1
     mcounts = tcounts - ocounts
     ocounts = tcounts
-    print("Counts per",interval_time,"seconds =", mcounts)
+    print("Counts per",interval_time,"Seconds =", mcounts)
     data2 = [now,mcounts]
     data_writer.writerow(data2)
 

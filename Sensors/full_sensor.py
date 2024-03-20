@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 file_name = sys.argv[1]
 run_time = int(sys.argv[2])
 
-meta_data = ["Time","PM25","PM10","Temperature","Humidity","Pressure","Counts/Second"]
+meta_data = ["Time","PM25","PM10","Temperature","Humidity","Pressure","CPS"]
 file = open(file_name,"w",newline='')
 data_writer = csv.writer(file)
 data_writer.writerow(meta_data)
