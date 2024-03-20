@@ -7,8 +7,9 @@ import RPi.GPIO as GPIO
 
 file_name = sys.argv[1]
 run_time = int(sys.argv[2])
+interval_time = int(sys.argv[3])
 
-meta_data = ["Time","PM25","PM10","Temperature","Humidity","Pressure","CPS"]
+meta_data = ["Time","PM25","PM10","Temperature","Humidity","Pressure","Counts per Interval"]
 file = open(file_name,"w",newline='')
 data_writer = csv.writer(file)
 data_writer.writerow(meta_data)
@@ -30,8 +31,8 @@ tcounts = 0
 ocounts = 0
 
 def my_callback(channel):
-    if GPIO.input(channel) == GPIO.FALLING:
-        tcounts = tcounts + 1
+    global tcounts
+    tcounts = tcounts + 1
 
 delay = 0
 time.sleep(delay)
@@ -44,7 +45,7 @@ now = time.time()
 start_time = now
 
 while  (now - start_time) < run_time:
-    time.sleep(1)
+    time.sleep(interval_time)
     try:
         aqdata = pm25.read()
         print("Collecting data...")
@@ -61,3 +62,4 @@ while  (now - start_time) < run_time:
     data_writer.writerow(data)
 
 GPIO.cleanup()
+file.close()

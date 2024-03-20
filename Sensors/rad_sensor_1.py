@@ -19,4 +19,3 @@ GPIO.add_event_detect(16, GPIO.FALLING, callback=my_callback)
 
 while now - start_time < 20 :
     time.sleep(1)
-    
