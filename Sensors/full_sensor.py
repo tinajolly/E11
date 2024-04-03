@@ -38,7 +38,7 @@ delay = 0
 time.sleep(delay)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(16, GPIO.IN)
+GPIO.setup(17, GPIO.IN)
 GPIO.add_event_detect(17, GPIO.FALLING, callback=my_callback)
 
 now = time.time()
